@@ -14,6 +14,15 @@ public class MaxplusMatch {
     private Integer lose_team_score;
     private Integer match_id;
     private Integer category_id;
+    private String map_name;
+
+    public String getMap_name() {
+        return map_name;
+    }
+
+    public void setMap_name(String map_name) {
+        this.map_name = map_name;
+    }
 
     public Integer getCategory_id() {
         return category_id;

@@ -78,6 +78,7 @@ public class MaxPlusCsgoController {
         maxplusMatch.setSub_title(csgoEvent.getBo());
         maxplusMatch.setProgress_desc(csgoEvent.getState());
         maxplusMatch.setEnd_bid_time(DateUtil.timestampToLocalDateTime(Long.valueOf(csgoEvent.getEven_time() * 1000)));
+        maxplusMatch.setMap_name(round.getMap_name());
         if (round.getTeam1_score() > round.getTeam2_score()) {
             maxplusMatch.setWin_team_name(csgoEvent.getTeam1_name());
             maxplusMatch.setWin_team_score(round.getTeam1_score());

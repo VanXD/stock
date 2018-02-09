@@ -9,7 +9,7 @@ public class MaxplusMatchDao extends BaseDao {
     public int insert(MaxplusMatch maxplusMatch) {
         String sql = "INSERT INTO maxplus_match (progress_desc, title, sub_title," +
                 " end_bid_time, win_team_name, win_team_score, lose_team_name," +
-                " lose_team_score, match_id, category_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                " lose_team_score, match_id, category_id, map_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             return jdbcTemplate.update(sql, maxplusMatch.getProgress_desc(),
                     maxplusMatch.getTitle(),
@@ -20,7 +20,8 @@ public class MaxplusMatchDao extends BaseDao {
                     maxplusMatch.getLose_team_name(),
                     maxplusMatch.getLose_team_score(),
                     maxplusMatch.getMatch_id(),
-                    maxplusMatch.getCategory_id());
+                    maxplusMatch.getCategory_id(),
+                    maxplusMatch.getMap_name());
         } catch (Exception e) {
             logger.error("SQL错误：", e);
             throw e;

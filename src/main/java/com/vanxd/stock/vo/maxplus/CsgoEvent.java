@@ -4,7 +4,7 @@ import java.util.List;
 
 public class CsgoEvent {
     private String bo;
-    private int even_time;
+    private long even_time;
     private int event_id;
     private int league_id;
     private String league_img;
@@ -32,11 +32,11 @@ public class CsgoEvent {
         this.bo = bo;
     }
 
-    public int getEven_time() {
+    public long getEven_time() {
         return even_time;
     }
 
-    public void setEven_time(int even_time) {
+    public void setEven_time(long even_time) {
         this.even_time = even_time;
     }
 
