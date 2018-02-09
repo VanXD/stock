@@ -33,15 +33,24 @@ public class MaxPlusController {
     private final static ThreadPoolExecutor THREAD_POOL = new ThreadPoolExecutor(8, 16, 120, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(), new ThreadPoolExecutor.DiscardOldestPolicy());
     private final static String API = "https://q.maxjia.com/api/bets/get_all_category/3/?&bet_type=all&limit=30&offset=%d";
     private static AtomicInteger offsetStart = new AtomicInteger(0);
+    private final static int GAP = 30;
+
 
     @GetMapping("/saveMaxPlusData.json")
     public void saveData() {
         for (int i = 0 ;i < 8;i++) {
             THREAD_POOL.submit(() -> {
                 while (true) {
-                    String url = String.format(API, offsetStart.getAndAdd(30));
+                    String url = String.format(API, offsetStart.getAndAdd(GAP));
                     logger.info("准备请求：{}", url);
-                    MaxResult maxResult = request(url);
+                    MaxResult maxResult;
+                    try {
+                        maxResult = request(url);
+                    } catch (Exception e) {
+                        logger.error("请求失败，恢复offset：", e);
+                        offsetStart.addAndGet(-GAP);
+                        continue;
+                    }
                     List<MaxCategory> result = maxResult.getResult();
                     if (CollectionUtils.isEmpty(result)) {
                         logger.info("结束");
@@ -93,12 +102,6 @@ public class MaxPlusController {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(MaxResult.class);
-        try {
-            return jsonObjectMono.block();
-        } catch (Exception e) {
-            logger.error("请求错误", e);
-            return null;
-        }
-
+        return jsonObjectMono.block();
     }
 }
