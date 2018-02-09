@@ -1,4 +1,4 @@
-package com.vanxd.stock.entity;
+package com.vanxd.stock.vo.maxplus;
 
 import java.util.List;
 

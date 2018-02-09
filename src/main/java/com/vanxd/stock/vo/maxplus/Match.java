@@ -1,4 +1,4 @@
-package com.vanxd.stock.entity;
+package com.vanxd.stock.vo.maxplus;
 
 public class Match {
     private String end_bid_time;
