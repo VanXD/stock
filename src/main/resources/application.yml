@@ -1,0 +1,24 @@
+
+server:
+  port: 5014
+spring:
+  thymeleaf:
+    cache: false
+    mode: HTML5
+  resources:
+    cache:
+      cachecontrol:
+        no-cache: false
+        max-age: 0
+        no-store: true
+  output:
+    ansi:
+      enabled: always
+  redis:
+    host: 192.168.99.100
+    password: xiaodong
+    database: 0
+logging:
+  level:
+    com.vanxd.stock: info
+    org.springframework.jdbc.core: info

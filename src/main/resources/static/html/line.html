@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="stock1" style="width: 100%;height:400px;"></div>
+
+<div id="stock" style="width: 100%;height:400px;"></div>
+
+<script src="/js/common.js"></script>
+<script src="/js/stock1.js"></script>
+<script src="/js/stock.js"></script>
+<script src="/js/echarts.common.min.js"></script>
+<script>
+    render("stock1", stock1);
+    render("stock", stock);
+    function render(id, data) {
+        let myChart = echarts.init(document.getElementById(id)),
+            seriesData = [
+                {
+                    name: "avgHighLowData",
+                    data: data.chartlist.map(item => (item.high + item.low) / 2),
+                    type: 'line'
+                },
+                {
+                    name: "highData",
+                    data: data.chartlist.map(item => item.high),
+                    type: 'line',
+                    lineStyle: {
+                        type: "dotted"
+                    }
+                },
+                {
+                    name: "lowData",
+                    data: data.chartlist.map(item => item.low),
+                    type: 'line',
+                    lineStyle: {
+                        type: "dotted"
+                    }
+                },
+                {
+                    name: "openData",
+                    data: data.chartlist.map(item => item.open),
+                    type: 'line',
+                    lineStyle: {
+                        type: "dotted"
+                    }
+                },
+                {
+                    name: "closeData",
+                    data: data.chartlist.map(item => item.close),
+                    type: 'line',
+                    lineStyle: {
+                        type: "dotted"
+                    }
+                },
+
+            ];
+            xAxisData = data.chartlist.map(item => new Date(item.time).format("yyyy-MM-dd"));
+            option = {
+                tooltip: {
+                    trigger: 'axis',
+                },
+                legend: {
+                    selected: {
+                        "highData": false,
+                        "lowData": false,
+                        "openData": false,
+                        "closeData": false,
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    data: xAxisData,
+                    axisLabel: {
+                        interval: 0,
+                        rotate:-30
+                    }
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        show: true,
+                        xAxisIndex: [0],
+                    },
+                    {
+                        type: 'inside',
+                        xAxisIndex: [0],
+                    },
+                ],
+                series: seriesData
+            };
+        myChart.setOption(option);
+    }
+</script>
+</body>
+</html>
