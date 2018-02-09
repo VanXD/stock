@@ -38,6 +38,7 @@ public class MaxPlusController {
 
     @GetMapping("/saveMaxPlusData.json")
     public void saveData() {
+        offsetStart.set(0);
         for (int i = 0 ;i < 8;i++) {
             THREAD_POOL.submit(() -> {
                 while (true) {
